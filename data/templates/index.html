@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% block title %}CineTrace — Discover Cinematic Influence{% endblock %}
+
+{% block head %}
+<style>
+.hero-bg-img{position:absolute;inset:0;background-size:cover;background-position:center top;filter:brightness(.42) saturate(1.2)}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+{% if hero %}
+<section class="hero">
+  <div class="hero-bg" id="heroBg" data-title="{{ hero.get('title','') }}" data-year="{{ hero.get('release_year','') }}" style="background-image:url('{{ hero.get('poster_url','') or '/static/img/hero_placeholder.svg' }}')"></div>
+  <div class="hero-fade"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="5,0 6.2,3.6 10,3.6 7,5.8 8.1,9.5 5,7.3 1.9,9.5 3,5.8 0,3.6 3.8,3.6"/></svg>
+      Featured Film
+    </div>
+    <h1 class="hero-title">{{ hero.get('title','') }}</h1>
+    <div class="hero-meta">
+      {% if hero.get('avg_rating') %}
+      <div class="hero-rating">
+        <svg width="14" height="14" viewBox="0 0 10 10" fill="currentColor" style="color:var(--gold)"><polygon points="5,0 6.2,3.6 10,3.6 7,5.8 8.1,9.5 5,7.3 1.9,9.5 3,5.8 0,3.6 3.8,3.6"/></svg>
+        {{ hero.get('avg_rating') }}
+      </div><span class="dot">·</span>
+      {% endif %}
+      <span>{{ hero.get('release_year','') }}</span>
+      {% if hero.get('runtime_min') %}<span class="dot">·</span><span>{{ hero.get('runtime_min') }} min</span>{% endif %}
+      {% if hero.get('language') %}<span class="dot">·</span><span style="text-transform:uppercase;font-size:11px">{{ hero.get('language','') }}</span>{% endif %}
+    </div>
+    <div class="hero-genres">
+      {% for g in hero.get('genres',[])[:4] %}
+        <span class="genre-tag">{{ g }}</span>
+      {% endfor %}
+    </div>
+    {% if hero.get('synopsis') %}
+    <p class="hero-desc">{{ hero.get('synopsis','') }}</p>
+    {% endif %}
+    <div class="hero-actions">
+      <a href="/film/{{ hero.get('film_id') }}" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        Explore Film
+      </a>
+      <a href="/browse" class="btn-outline">Browse All</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-block">
+    <div class="stat-num">{{ total_films }}</div>
+    <div class="stat-label">Films</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num" id="dirCount">—</div>
+    <div class="stat-label">Directors</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num" id="genreCount">{{ genres|length }}</div>
+    <div class="stat-label">Genres</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">∞</div>
+    <div class="stat-label">Connections</div>
+  </div>
+</div>
+
+<!-- TOP RATED -->
+{% if top_rated %}
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Top Rated</h2>
+    <span class="section-count">{{ top_rated|length }} films</span>
+    <a href="/browse?sort=rating" class="section-link">See all →</a>
+  </div>
+  <div class="film-row">
+    {% for film in top_rated %}{{ film_card(film) }}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<!-- TRENDING NOW -->
+{% if trending %}
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Discover Now</h2>
+    <a href="/browse" class="section-link">See all →</a>
+  </div>
+  <div class="film-row">
+    {% for film in trending %}{{ film_card(film) }}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<!-- AWARD WINNERS -->
+{% if award_films %}
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Award Winners</h2>
+    <span class="section-count">{{ award_films|length }} films</span>
+    <a href="/browse?sort=awards" class="section-link">See all →</a>
+  </div>
+  <div class="film-row">
+    {% for film in award_films %}{{ film_card(film, show_awards=True) }}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<!-- BROWSE BY GENRE -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Browse by Genre</h2>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px">
+    {% for genre in genres %}
+    <a href="/browse?genre={{ genre }}" style="
+      padding:10px 20px;border-radius:24px;font-size:13px;font-weight:500;
+      background:var(--surface2);border:1px solid var(--border);color:var(--muted);
+      transition:all .2s;
+    " onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'"
+       onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">{{ genre }}</a>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}
+
+{% macro film_card(film, show_awards=False) %}
+<a class="film-card" href="javascript:void(0)" onclick="openModal('{{ film.film_id }}', '{{ film.title | replace('\u0027', '\\\u0027') }}', '{{ film.release_year }}')">
+  <div class="card-poster-wrap">
+    <img class="card-poster"
+         src="{{ film.get('poster_url','') or '/static/img/placeholder.svg' }}"
+         data-title="{{ film.title }}"
+         data-year="{{ film.release_year }}"
+         onerror="this.src='/static/img/placeholder.svg'"
+         alt="{{ film.title }}" loading="lazy"/>
+    {% if film.get('avg_rating') %}
+    <div class="card-rating-badge">★ {{ film.avg_rating }}</div>
+    {% endif %}
+    <div class="card-overlay">
+      <div class="card-play">
+        <svg width="12" height="14" viewBox="0 0 12 14" fill="#000"><polygon points="0,0 12,7 0,14"/></svg>
+      </div>
+      <div class="card-genre-tags">
+        {% for g in film.get('genres',[])[:2] %}
+        <span class="card-genre-tag">{{ g }}</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="card-info">
+    <div class="card-title">{{ film.title }}</div>
+    <div class="card-meta">
+      <span>{{ film.release_year or '—' }}</span>
+      {% if show_awards and film.awards_won > 0 %}
+        <span class="dot">·</span>
+        <span style="color:var(--gold)">🏆 {{ film.awards_won }}</span>
+      {% endif %}
+    </div>
+  </div>
+</a>
+{% endmacro %}
+
+{% block scripts %}
+<script>
+// Fetch director count for stat
+fetch('/api/films').then(r=>r.json()).then(f=>{
+  const dirs=new Set(f.map(x=>x.director_id));
+  document.getElementById('dirCount').textContent=dirs.size
+})
+
+// Load TMDB posters
+document.querySelectorAll('[data-title]').forEach(img=>{
+  const t=img.dataset.title,y=img.dataset.year;
+  getPosterUrl(t, y).then(url => { img.src = url; });
+});
+
+// Load Hero Backdrop
+const heroBg = document.getElementById('heroBg');
+if(heroBg && heroBg.dataset.title) {
+    getBackdropUrl(heroBg.dataset.title, heroBg.dataset.year).then(url => {
+        heroBg.style.backgroundImage = `url('${url}')`;
+    });
+}
+</script>
+{% endblock %}

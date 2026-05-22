@@ -1,0 +1,31 @@
+﻿link_id,source_film_id,target_film_id,influence_type,evidence_url,notes,recorded_at
+1,1,9,narrative structure,,Godard cited Rashomon's unreliable narration as liberating for his own storytelling.,2021-03-15
+2,2,13,ensemble staging,,Coppola acknowledged Seven Samurai as a template for group loyalty and betrayal.,2020-07-10
+3,11,13,visual grammar,,Gordon Willis and Coppola drew on Citizen Kane's low-angle lighting for The Godfather.,2020-07-11
+4,11,7,deep focus,,Kubrick studied Gregg Toland's deep focus technique extensively before 2001.,2019-04-22
+5,12,28,obsessive protagonist,None,Lynch acknowledged Vertigo's psychological doubling as a key reference for Mulholland Drive.,2022-01-08
+6,9,20,jump cuts,,Wong Kar-wai's fragmented editing in Chungking Express draws on Godard's jump cuts.,2021-11-30
+7,5,18,metaphysical imagery,,Tarkovsky described The Seventh Seal as confirming cinema's capacity for philosophy.,2019-06-17
+8,17,26,memory structure,,Malick's fragmentary childhood memories in Tree of Life echo Tarkovsky's Mirror.,2022-09-04
+9,2,40,military camaraderie,,Kubrick's Full Metal Jacket uses Seven Samurai's group dynamics in a war context.,2020-12-01
+10,15,25,lyrical landscapes,,Days of Heaven's visual poetry is a direct development of Badlands' approach.,2021-05-19
+11,10,30,child protagonist,,Varda acknowledged The 400 Blows' influence on her portrayal of marginal youth.,2022-03-11
+12,33,19,domestic duration,,Wong Kar-wai has cited Jeanne Dielman's temporal realism as an influence.,2021-08-25
+13,35,50,rural humanism,,Kiarostami's minimalist rural films owe a clear debt to Satyajit Ray's Apu Trilogy.,2020-10-13
+14,11,43,deep space staging,,Orson Welles' own Touch of Evil continues his exploration of deep-focus grammar.,2019-02-28
+15,13,16,crime epic structure,,Scorsese has repeatedly cited The Godfather as the model for Goodfellas.,2020-04-06
+16,9,41,handheld freedom,,Godard's Vivre Sa Vie continues Breathless' experiment in location handheld shooting.,2021-07-14
+17,6,55,female interiority,,Akerman cited Persona as foundational for her exploration of women's inner lives.,2022-06-01
+18,3,38,episodic Rome,,Amarcord revisits La Dolce Vita's episodic portrait of Italian social life.,2020-09-09
+19,4,28,subjective reality,,Lynch's Mulholland Drive shares 8½'s structure of a protagonist confusing fantasy and reality.,2022-01-09
+20,52,27,surreal suburban dread,None,Blue Velvet develops the surrealist horror Eraserhead established.,2021-04-17
+21,31,32,colonial critique,,Sembène's Xala extends the political critique he launched with Black Girl.,2020-11-22
+22,1,23,meta-narrative,,Close-Up's play with reality and fiction owes much to Rashomon's shifting perspectives.,2021-06-30
+23,18,24,existential journey,,Taste of Cherry's contemplative structure follows Stalker's slow existential road movie.,2022-02-14
+24,14,26,war as metaphysics,,The Tree of Life's battlefield imagery consciously echoes Apocalypse Now.,2022-10-05
+25,44,12,voyeurism theme,,Hitchcock deepened Rear Window's voyeurism theme in Vertigo.,2019-09-18
+26,37,13,honour code,,The Godfather's code of silence mirrors the samurai honour code Yojimbo examines.,2020-08-03
+27,47,8,fragmented memory,,Mirror's disorienting time structure anticipates the fragmented consciousness of Eyes Wide Shut.,2022-04-21
+28,29,53,female solidarity,,Varda's own One Sings builds on the feminist wandering established in Cléo from 5 to 7.,2021-12-12
+29,35,56,coming of age,,Aparajito is a direct sequel continuing Pather Panchali's portrait of Apu's growth.,2019-01-05
+30,11,15,urban alienation,,Taxi Driver's visual debt to Citizen Kane appears in its nocturnal low-angle city shots.,2021-02-07

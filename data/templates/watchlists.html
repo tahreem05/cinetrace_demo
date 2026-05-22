@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}My Watchlists — CineTrace{% endblock %}
+
+{% block head %}
+<style>
+.wl-header{padding:40px 60px 20px;display:flex;align-items:center;justify-content:space-between}
+.wl-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;color:var(--text)}
+.wl-form{padding:0 60px 40px;display:flex;gap:15px;align-items:center}
+.form-input{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 15px;border-radius:4px;font-family:inherit;font-size:14px;outline:none;transition:border-color 0.2s;width:250px}
+.form-input:focus{border-color:var(--gold)}
+.btn-gold{background:var(--gold);color:#000;border:none;padding:10px 20px;border-radius:4px;font-weight:700;cursor:pointer;transition:background 0.2s}
+.btn-gold:hover{background:var(--gold2)}
+
+.wl-container{padding:0 60px 60px;display:flex;flex-direction:column;gap:40px}
+.wl-block{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:30px}
+.wl-block-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:15px}
+.wl-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--gold)}
+.wl-meta{font-size:12px;color:var(--muted);text-transform:uppercase}
+
+.film-row{display:flex;gap:15px;overflow-x:auto;padding-bottom:15px;scrollbar-width:none}
+.film-row::-webkit-scrollbar{display:none}
+.wl-item{position:relative;flex:0 0 140px;transition:transform 0.2s}
+.wl-item:hover{transform:translateY(-4px)}
+.wl-poster{width:140px;height:210px;object-fit:cover;border-radius:4px;background:var(--surface);display:block;margin-bottom:8px}
+.wl-item-title{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn-remove{position:absolute;top:5px;right:5px;background:rgba(229,57,53,0.9);color:white;border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s, background 0.2s}
+.wl-item:hover .btn-remove{opacity:1}
+.btn-remove:hover{background:var(--red)}
+
+@media(max-width:768px){
+    .wl-header, .wl-form, .wl-container{padding-left:20px;padding-right:20px}
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="wl-header">
+    <h1 class="wl-title">My Workspace</h1>
+</div>
+
+<div class="wl-form">
+    <input type="text" id="newListName" class="form-input" placeholder="New Watchlist Name...">
+    <button class="btn-gold" onclick="createWatchlist()">Create List</button>
+</div>
+
+<div class="wl-container">
+    {% for wl in watchlists %}
+    <div class="wl-block">
+        <div class="wl-block-header">
+            <div class="wl-name">{{ wl.list_name }}</div>
+            <div class="wl-meta">{{ 'Public' if wl.is_public == '1' else 'Private' }} • {{ wl.films|length }} Films</div>
+        </div>
+        
+        {% if wl.films %}
+        <div class="film-row">
+            {% for f in wl.films %}
+            <div class="wl-item" id="item-{{ wl.list_id }}-{{ f.film_id }}">
+                <a href="/film/{{ f.film_id }}">
+                    <img class="wl-poster" data-lazy-title="{{ f.title }}" src="/static/img/placeholder.svg" alt="{{ f.title }}">
+                </a>
+                <button class="btn-remove" title="Remove from list" onclick="removeFromList('{{ wl.list_id }}', '{{ f.film_id }}')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <div class="wl-item-title">{{ f.title }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-data">This list is empty. Explore films and add them here!</div>
+        {% endif %}
+    </div>
+    {% else %}
+    <div class="no-data" style="background:var(--surface2);border-radius:8px">You don't have any watchlists yet. Create one above!</div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Load posters
+document.querySelectorAll('img[data-lazy-title]').forEach(img=>{
+  const t=img.dataset.lazyTitle;
+  getPosterUrl(t, '').then(url => { img.src = url; });
+});
+
+function createWatchlist() {
+    const name = document.getElementById('newListName').value.trim();
+    if(!name) return alert("Please enter a name");
+    
+    // We hack the "add" endpoint to create an empty list if film_id is null
+    fetch('/api/watchlist/add', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({list_name: name, film_id: ""})
+    }).then(r=>r.json()).then(d=>{
+        if(d.success) window.location.reload();
+    });
+}
+
+function removeFromList(list_id, film_id) {
+    if(!confirm("Remove this film from your list?")) return;
+    fetch('/api/watchlist/remove', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({list_id, film_id})
+    }).then(r=>r.json()).then(d=>{
+        if(d.success) {
+            document.getElementById(`item-${list_id}-${film_id}`).remove();
+        }
+    });
+}
+</script>
+{% endblock %}

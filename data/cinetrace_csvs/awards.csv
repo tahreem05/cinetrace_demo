@@ -1,0 +1,41 @@
+﻿award_id,film_id,award_name,category,year,outcome
+1,1,Venice Film Festival,Golden Lion,1950,Won
+2,1,Academy Awards,Best Foreign Language Film,1952,Nominated
+3,2,Venice Film Festival,Silver Lion,1954,Won
+4,3,Palme d'Or,Best Film,1960,Won
+5,4,Academy Awards,Best Costume Design,1964,Won
+6,5,BAFTA,Best Film,1958,Nominated
+7,7,Academy Awards,Best Visual Effects,1969,Won
+8,7,BAFTA,Best Film,1969,Won
+9,8,Venice Film Festival,Jury Special Prize,1971,Won
+10,9,BAFTA,Best Screenplay,1961,Won
+11,11,Academy Awards,Best Picture,1942,Nominated
+12,11,Academy Awards,Best Director,1942,Nominated
+13,12,National Board of Review,Top Ten Films,1958,Won
+14,13,Academy Awards,Best Picture,1973,Won
+15,13,Academy Awards,Best Director,1973,Nominated
+16,14,Palme d'Or,Best Film,1979,Won
+17,15,Palme d'Or,Best Film,1976,Won
+18,16,Academy Awards,Best Picture,1991,Nominated
+19,16,BAFTA,Best Film,1991,Nominated
+20,17,Cannes Film Festival,FIPRESCI Prize,1969,Won
+21,18,BAFTA,Best Foreign Language Film,1980,Nominated
+22,19,Hong Kong Film Awards,Best Director,2001,Won
+23,19,Cannes Film Festival,Best Soundtrack,2001,Won
+24,21,Academy Awards,Best Foreign Language Film,2000,Won
+25,22,Academy Awards,Best Original Screenplay,2003,Won
+26,22,Goya Awards,Best Film,2002,Won
+27,24,Palme d'Or,Best Film,1997,Won
+28,25,Academy Awards,Best Cinematography,1979,Nominated
+29,26,Palme d'Or,Best Film,2011,Won
+30,28,Cannes Film Festival,Best Director,2001,Won
+31,29,Prix Louis Delluc,Best French Film,1962,Won
+32,33,Sight & Sound Poll,Greatest Film of All Time,2022,Won
+33,35,Cannes Film Festival,Best Human Document,1956,Won
+34,36,National Film Award,Best Film,1960,Won
+35,38,Academy Awards,Best Foreign Language Film,1975,Won
+36,45,Academy Awards,Best Picture,1975,Won
+37,46,Academy Awards,Best Actor,1981,Nominated
+38,47,Cannes Film Festival,FIPRESCI Prize,1980,Won
+39,57,Palme d'Or,Best Film,1980,Won
+40,60,Venice Film Festival,Special Jury Prize,1999,Won

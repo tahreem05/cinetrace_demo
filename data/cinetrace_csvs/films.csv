@@ -1,0 +1,61 @@
+﻿film_id,title,release_year,country,synopsis,director_id,cinematographer_id,budget,language,runtime_min
+1,Rashomon,1950,Japan,A murder is recounted by four unreliable witnesses in feudal Japan.,1,1,,Japanese,88
+2,Seven Samurai,1954,Japan,A poor village hires seven masterless samurai to protect them from bandits.,1,1,,Japanese,207
+3,La Dolce Vita,1960,Italy,A journalist wanders through Rome's celebrity nightlife seeking meaning.,2,2,,Italian,174
+4,8½,1963,Italy,A filmmaker struggles with creative block while juggling memory and fantasy.,2,2,,Italian,138
+5,The Seventh Seal,1957,Sweden,A knight returning from the Crusades plays chess with Death.,3,3,,Swedish,96
+6,Persona,1966,Sweden,A nurse caring for a mute actress begins to lose her own identity.,3,3,,Swedish,83
+7,2001: A Space Odyssey,1968,UK,A voyage to Jupiter descends into confrontation between man and artificial intelligence.,4,4,10500000,English,149
+8,A Clockwork Orange,1971,UK,A violent young man undergoes experimental aversion therapy in a dystopian Britain.,4,4,2200000,English,136
+9,Breathless,1960,France,A small-time car thief goes on the run in Paris with an American student.,5,5,400000,French,90
+10,The 400 Blows,1959,France,A misunderstood Parisian boy drifts toward delinquency after repeated failures at school.,6,6,,French,99
+11,Citizen Kane,1941,USA,The life of a media magnate is pieced together after his death through testimonies.,7,7,839727,English,119
+12,Vertigo,1958,USA,A detective with a fear of heights becomes obsessed with a mysterious woman.,8,8,2479000,English,128
+13,The Godfather,1972,USA,The patriarch of a powerful crime family reluctantly hands power to his son.,9,9,6000000,English,175
+14,Apocalypse Now,1979,USA,A Special Forces captain is sent into the jungle to assassinate a rogue colonel.,9,9,31500000,English,147
+15,Taxi Driver,1976,USA,A mentally unstable veteran works as a night-time cab driver in a decaying New York.,10,10,1300000,English,114
+16,Goodfellas,1990,USA,The rise and fall of a mobster over three decades in the New York underworld.,10,10,25000000,English,146
+17,Andrei Rublev,1966,USSR,An icon painter journeys through a turbulent 15th century Russia.,11,11,,Russian,183
+18,Stalker,1979,USSR,A guide leads two men into the mysterious Zone where wishes are supposedly granted.,11,11,,Russian,162
+19,In the Mood for Love,2000,Hong Kong,Two neighbours suspect their spouses of having an affair and grow close.,12,12,,Cantonese,98
+20,Chungking Express,1994,Hong Kong,Two heartbroken policemen navigate lonely city life and unexpected connections.,12,12,,Cantonese,102
+21,All About My Mother,1999,Spain,A nurse travels to Barcelona to find the father of her late son.,13,13,3000000,Spanish,101
+22,Talk to Her,2002,Spain,Two men form an unlikely friendship while caring for comatose women they love.,13,13,6000000,Spanish,112
+23,Close-Up,1990,Iran,A real-life impostor poses as celebrated director Mohsen Makhmalbaf.,14,14,,Persian,98
+24,Taste of Cherry,1997,Iran,A man drives around Tehran looking for someone to bury him after his planned suicide.,14,14,,Persian,95
+25,Days of Heaven,1978,USA,A farmworker and his lover scheme to inherit a dying wheat farmer's fortune.,15,15,3000000,English,94
+26,The Tree of Life,2011,USA,"A Texas family in the 1950s grapples with loss, memory, and the origins of existence.",15,15,32000000,English,139
+27,Blue Velvet,1986,USA,A young man discovers a severed ear and is drawn into a dark criminal underworld.,16,16,6000000,English,120
+28,Mulholland Drive,2001,USA,An aspiring actress and an amnesiac woman investigate a mystery in Los Angeles.,16,16,15000000,English,147
+29,Cléo from 5 to 7,1962,France,A singer wanders Paris waiting for cancer test results over two real-time hours.,17,17,,French,90
+30,Vagabond,1985,France,The last days of a drifting young woman are reconstructed through witness interviews.,17,17,,French,105
+31,Black Girl,1966,Senegal,A Senegalese woman's hopes are crushed by exploitation when she works for a French family.,18,18,,French,65
+32,Xala,1975,Senegal,A corrupt businessman becomes afflicted with impotence on his wedding night.,18,18,,Wolof,123
+33,Jeanne Dielman,1975,Belgium,Three days in the life of a widowed housewife slowly reveal a simmering crisis.,19,19,,French,201
+34,News from Home,1977,Belgium,Letters from a mother are read over footage of New York City streets.,19,19,,French,85
+35,Pather Panchali,1955,India,A young boy grows up in poverty in rural Bengal in the first part of the Apu Trilogy.,20,20,,Bengali,125
+36,The World of Apu,1959,India,The final chapter of the Apu Trilogy follows Apu into adulthood and fatherhood.,20,20,,Bengali,106
+37,Yojimbo,1961,Japan,A wandering samurai plays two rival gangs against each other in a lawless town.,1,1,,Japanese,110
+38,Amarcord,1973,Italy,Episodic memories of small-town Italian life under Fascism in the 1930s.,2,2,,Italian,127
+39,Wild Strawberries,1957,Sweden,An elderly professor reflects on his life during a long car journey.,3,3,,Swedish,91
+40,Full Metal Jacket,1987,UK,Marine recruits endure brutal training before being deployed to Vietnam.,4,4,30000000,English,116
+41,Vivre Sa Vie,1962,France,A young woman drifts into prostitution in twelve tableaux.,5,5,,French,85
+42,Jules and Jim,1962,France,Two friends fall for the same free-spirited woman in the years around World War I.,6,5,,French,105
+43,Touch of Evil,1958,USA,A corrupt border-town detective clashes with a Mexican drug enforcement officer.,7,7,895000,English,95
+44,Rear Window,1954,USA,A photographer confined to a wheelchair suspects his neighbour of murder.,8,8,1000000,English,112
+45,The Godfather Part II,1974,USA,The story of the Corleone family expands into both past and present.,9,9,13000000,English,202
+46,Raging Bull,1980,USA,The self-destructive rise and fall of boxer Jake LaMotta.,10,10,18000000,English,129
+47,Mirror,1975,USSR,"Fragmented memories, dreams, and historical footage interweave in a meditation on identity.",11,11,,Russian,108
+48,Happy Together,1997,Hong Kong,A turbulent gay relationship between two Hong Kong men plays out in Buenos Aires.,12,12,,Cantonese,96
+49,Volver,2006,Spain,A woman returns to her village haunted by secrets and the apparent ghost of her mother.,13,13,5000000,Spanish,121
+50,Where Is the Friend's House?,1987,Iran,A young boy searches a neighbouring village to return a classmate's notebook.,14,14,,Persian,83
+51,Badlands,1973,USA,A teenager and her older boyfriend go on a killing spree across the midwest.,15,15,350000,English,94
+52,Eraserhead,1977,USA,A man in an industrial wasteland is horrified by his severely deformed child.,16,16,100000,English,89
+53,"One Sings, the Other Doesn't",1977,France,Two women maintain a friendship across fifteen years of political and personal change.,17,17,,French,120
+54,Ceddo,1977,Senegal,A princess is kidnapped by an Imam as Islam encroaches on traditional African society.,18,18,,Wolof,120
+55,Je Tu Il Elle,1974,Belgium,A young woman leaves home in an act of detachment and encounters strangers on the road.,19,19,,French,90
+56,Aparajito,1956,India,The middle chapter of the Apu Trilogy follows Apu's education and his mother's sacrifice.,20,20,,Bengali,110
+57,Kagemusha,1980,Japan,A petty thief is made to impersonate a dying warlord in 16th-century Japan.,1,1,6500000,Japanese,162
+58,Satyricon,1969,Italy,Two students pursue love and adventure in a fragmentary vision of ancient Rome.,2,2,,Italian,128
+59,Scenes from a Marriage,1973,Sweden,A married couple's relationship slowly dissolves over years of separation.,3,3,,Swedish,169
+60,Eyes Wide Shut,1999,UK,A doctor embarks on a surreal odyssey through sexual encounters in New York.,4,4,65000000,English,159

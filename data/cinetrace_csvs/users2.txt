@@ -1,0 +1,21 @@
+﻿user_id,username,email,password_hash,role,created_at
+1,cinephile_pk,cinephile@example.com,12946eab6d5f2ce79c1490dc8eb252981b525ce1f08953cb38f5ca5ac3bd3e69,user,2023-07-08 03:08:39
+2,reelcritic,reelcritic@example.com,35ccfd2e84eaa777f48dba23aa2713dd88b09eef5d7c1e5adc29d88fb6712b28,user,2023-12-22 16:23:47
+3,shadowplay,shadowplay@example.com,ab3d7f852ccfa36dd986f5433c2863987137acb85ab686c29fdcad22d8561369,user,2023-05-03 05:26:00
+4,kurosawa_fan,kfan@example.com,7571eb576f4e2d46fef28931b38d5ff89df725946565bf1bcdeed21a90c07a93,user,2022-12-13 22:35:30
+5,nouvelle_vague,nv@example.com,8eaf4a3eee5f59a14b1f6f7edfa96cf38890cda2ce8d91f4832ac1b136a80222,user,2023-02-09 07:50:49
+6,admin_alice,alice@cinetrace.io,f78e2248889e29e0fe48dbf35c1ca8a50224174f9396857a0a8360960f491468,admin,2019-02-16 22:33:27
+7,admin_bob,bob@cinetrace.io,28d884826354f8416f5b302a9074933806030d5f1cb0818baeafdcf7b514f440,admin,2022-09-23 09:03:01
+8,tarkovsky_zone,tzone@example.com,c9c3a4905699db321ac947aff7a12376081ef2c546eaef56a54b67eb15d9ab76,user,2019-09-26 11:38:13
+9,filmrat,filmrat@example.com,f3b622b2fa6954d1eb76d23692e7b63212be7aa7467b97142be762d0de8a5e0c,user,2021-12-24 00:04:17
+10,cinematheque,ct@example.com,d7c12417cc6227aa2992c692980dd69c411bbcc4abff742abf273d91c1c543cc,user,2021-05-25 15:22:45
+11,parallax_view,parallax@example.com,f0a3c47e8a3b6095bc09884c93aabf34ab6df80229f23ede9cc75caf69f70f8c,user,2021-02-19 01:39:51
+12,deep_focus,deepfocus@example.com,bfe241353c056df34a9801f12421987941c53dcaf6dc4ab3500fa8587bd349fb,user,2023-04-26 07:04:00
+13,auteur_watch,auteur@example.com,80dbdf07385efc814857f2282f85dcf4d4b21404c250d473fcff7a9a9ce86b64,user,2022-03-30 23:27:16
+14,iris_diaphragm,iris@example.com,626bc654e53c2f6add430ce226749ba32afa2d1d2dbbab24d5f9f061b35dcda8,user,2021-06-14 01:05:51
+15,jump_cut,jumpcut@example.com,09990e11ef27a64540e9b19b3d974a2b45baeb5e6d19d009ee65b5e241ecff8d,user,2019-09-20 02:08:56
+16,long_take,longtake@example.com,b55ad8d53b7044ab09a7a55ea7c91586ba7668032df56248055b21f620827cf2,user,2021-03-03 00:32:20
+17,rack_focus,rackfocus@example.com,273c81f4b6d320ffe7ca788853dc1acbbaac4f86670ef5538107a3c00c2bc170,user,2019-09-18 03:08:40
+18,dutch_angle,dutch@example.com,d45ab5e94af3e49bde55fde8d1dda91a7d8ab568c16c9dffe99717edda613207,user,2019-08-16 18:02:35
+19,mise_en_scene,mise@example.com,785b12581befeb687c7d6affe7eb222c2a8401023c6eb6e1dd26e8d7c1b3edf3,user,2020-09-25 03:41:52
+20,tracking_shot,tracking@example.com,aef520893aa2df1846f407945d42a4fd2874ac98484acd0ce35ac98ae4cacdc5,user,2021-05-16 08:46:32

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Directors — CineTrace{% endblock %}
+
+{% block head %}
+<style>
+.directors-header{padding:40px 60px;display:flex;align-items:center;justify-content:space-between}
+.directors-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;color:var(--text)}
+.directors-grid{padding:0 60px 60px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:25px}
+.director-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:25px;transition:transform 0.2s,border-color 0.2s;text-decoration:none}
+.director-card:hover{transform:translateY(-5px);border-color:var(--gold)}
+.director-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;color:var(--gold);margin-bottom:5px}
+.director-meta{font-size:12px;color:var(--muted);margin-bottom:15px;display:flex;gap:10px;text-transform:uppercase;letter-spacing:0.5px}
+.director-stats{display:flex;gap:15px;margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid var(--border)}
+.stat-box{flex:1}
+.stat-val{font-size:18px;font-weight:700;color:var(--text)}
+.stat-label{font-size:11px;color:var(--muted)}
+.best-film{font-size:13px;display:flex;gap:12px;align-items:center}
+.best-film-poster{width:40px;height:60px;border-radius:4px;object-fit:cover;background:var(--surface)}
+.best-film-info{flex:1;min-width:0}
+.best-film-title{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.best-film-label{font-size:10px;color:var(--muted);text-transform:uppercase}
+
+@media(max-width:768px){
+    .directors-header, .directors-grid{padding-left:20px;padding-right:20px}
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="directors-header">
+    <h1 class="directors-title">Legendary Directors</h1>
+</div>
+
+<div class="directors-grid">
+    {% for d in directors %}
+    <div class="director-card">
+        <div class="director-name">{{ d.name }}</div>
+        <div class="director-meta">
+            <span>{{ d.nationality or 'Unknown' }}</span>
+            <span>•</span>
+            <span>Born {{ d.birth_year or 'N/A' }}</span>
+        </div>
+        
+        <div class="director-stats">
+            <div class="stat-box">
+                <div class="stat-val">{{ d.film_count }}</div>
+                <div class="stat-label">Films</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-val">{% if d.avg_rating %}★ {{ d.avg_rating }}{% else %}—{% endif %}</div>
+                <div class="stat-label">Avg Rating</div>
+            </div>
+        </div>
+
+        {% if d.best_film %}
+        <div class="best-film">
+            <img class="best-film-poster" data-lazy-title="{{ d.best_film.title }}" data-lazy-year="{{ d.best_film.release_year }}" src="/static/img/placeholder.svg" alt="">
+            <div class="best-film-info">
+                <div class="best-film-label">Highest Rated</div>
+                <div class="best-film-title">{{ d.best_film.title }}</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Load posters
+document.querySelectorAll('img[data-lazy-title]').forEach(img=>{
+  const t=img.dataset.lazyTitle, y=img.dataset.lazyYear;
+  getPosterUrl(t, y).then(url => { img.src = url; });
+});
+</script>
+{% endblock %}

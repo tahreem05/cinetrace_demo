@@ -1,0 +1,46 @@
+﻿film_id,movement_id,role
+1,3,foundational
+2,3,foundational
+37,3,foundational
+57,3,foundational
+3,1,late
+4,1,late
+38,1,late
+9,2,foundational
+10,2,foundational
+29,2,foundational
+41,2,key work
+42,2,key work
+5,2,influenced
+30,2,late
+17,4,foundational
+18,4,key work
+47,4,key work
+13,5,key work
+14,5,key work
+15,5,foundational
+25,5,key work
+51,5,foundational
+16,5,late
+46,5,key work
+31,6,foundational
+32,6,key work
+54,6,key work
+19,8,key work
+20,8,foundational
+48,8,key work
+23,9,key work
+24,9,key work
+50,9,foundational
+33,11,foundational
+34,11,key work
+55,11,foundational
+53,11,key work
+35,12,foundational
+36,12,key work
+56,12,key work
+11,5,influenced
+12,5,influenced
+43,5,influenced
+7,5,influenced
+8,5,key work

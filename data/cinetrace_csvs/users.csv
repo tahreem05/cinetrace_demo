@@ -1,0 +1,21 @@
+﻿user_id,username,email,password_hash,role,created_at
+1,cinephile_pk,cinephile@example.com,password,user,2023-07-08 03:08:39
+2,reelcritic,reelcritic@example.com,password,user,2023-12-22 16:23:47
+3,shadowplay,shadowplay@example.com,password,user,2023-05-03 05:26:00
+4,kurosawa_fan,kfan@example.com,password,user,2022-12-13 22:35:30
+5,nouvelle_vague,nv@example.com,password,user,2023-02-09 07:50:49
+6,admin_alice,alice@cinetrace.io,password,admin,2019-02-16 22:33:27
+7,admin_bob,bob@cinetrace.io,password,admin,2022-09-23 09:03:01
+8,tarkovsky_zone,tzone@example.com,password,user,2019-09-26 11:38:13
+9,filmrat,filmrat@example.com,password,user,2021-12-24 00:04:17
+10,cinematheque,ct@example.com,password,user,2021-05-25 15:22:45
+11,parallax_view,parallax@example.com,password,user,2021-02-19 01:39:51
+12,deep_focus,deepfocus@example.com,password,user,2023-04-26 07:04:00
+13,auteur_watch,auteur@example.com,password,user,2022-03-30 23:27:16
+14,iris_diaphragm,iris@example.com,password,user,2021-06-14 01:05:51
+15,jump_cut,jumpcut@example.com,password,user,2019-09-20 02:08:56
+16,long_take,longtake@example.com,password,user,2021-03-03 00:32:20
+17,rack_focus,rackfocus@example.com,password,user,2019-09-18 03:08:40
+18,dutch_angle,dutch@example.com,password,user,2019-08-16 18:02:35
+19,mise_en_scene,mise@example.com,password,user,2020-09-25 03:41:52
+20,tracking_shot,tracking@example.com,password,user,2021-05-16 08:46:32

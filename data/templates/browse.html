@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Browse Films — CineTrace{% endblock %}
+
+{% block head %}
+<style>
+.browse-header{padding:40px 60px 20px;display:flex;align-items:center;justify-content:space-between}
+.browse-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;color:var(--text)}
+.filters-bar{padding:0 60px 40px;display:flex;gap:15px;flex-wrap:wrap;align-items:center}
+.filter-select, .filter-input{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 15px;border-radius:4px;font-family:inherit;font-size:14px;outline:none;transition:border-color 0.2s}
+.filter-select:focus, .filter-input:focus{border-color:var(--gold)}
+.filter-btn{background:var(--gold);color:#000;border:none;padding:10px 24px;border-radius:4px;font-weight:700;cursor:pointer;transition:background 0.2s}
+.filter-btn:hover{background:var(--gold2)}
+.results-grid{padding:0 60px 60px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:25px}
+
+@media(max-width:768px){
+    .browse-header, .filters-bar, .results-grid{padding-left:20px;padding-right:20px}
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="browse-header">
+    <h1 class="browse-title">Browse Films</h1>
+</div>
+
+<form class="filters-bar" method="GET" action="/browse">
+    <input type="text" name="q" class="filter-input" placeholder="Search..." value="{{ search }}">
+    <select name="genre" class="filter-select">
+        <option value="">All Genres</option>
+        {% for g in genres %}
+        <option value="{{ g }}" {% if genre_filter == g %}selected{% endif %}>{{ g }}</option>
+        {% endfor %}
+    </select>
+    <select name="sort" class="filter-select">
+        <option value="rating" {% if sort_by == 'rating' %}selected{% endif %}>Top Rated</option>
+        <option value="year" {% if sort_by == 'year' %}selected{% endif %}>Newest</option>
+        <option value="title" {% if sort_by == 'title' %}selected{% endif %}>A-Z</option>
+    </select>
+    <button type="submit" class="filter-btn">Apply</button>
+</form>
+
+<div class="results-grid">
+    {% for film in films %}
+    <a class="film-card" href="javascript:void(0)" onclick="openModal('{{ film.film_id }}', '{{ film.title | replace('\u0027', '\\\u0027') }}', '{{ film.release_year }}')">
+      <div class="card-poster-wrap">
+        <img class="card-poster"
+             src="/static/img/placeholder.svg"
+             data-lazy-title="{{ film.title }}"
+             data-lazy-year="{{ film.release_year }}"
+             alt="{{ film.title }}"/>
+        {% if film.get('avg_rating') %}
+        <div class="card-rating-badge">★ {{ film.avg_rating }}</div>
+        {% endif %}
+      </div>
+      <div class="card-info">
+        <div class="card-title">{{ film.title }}</div>
+        <div class="card-meta">
+          <span>{{ film.release_year or '—' }}</span>
+        </div>
+      </div>
+    </a>
+    {% else %}
+    <div class="no-data">No films found matching your criteria.</div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Load posters
+document.querySelectorAll('img[data-lazy-title]').forEach(img=>{
+  const t=img.dataset.lazyTitle, y=img.dataset.lazyYear;
+  getPosterUrl(t, y).then(url => { img.src = url; });
+});
+</script>
+{% endblock %}

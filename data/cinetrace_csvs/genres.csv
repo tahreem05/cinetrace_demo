@@ -1,0 +1,16 @@
+﻿genre_id,name,description
+1,Drama,Narrative films focused on realistic characters and emotional themes.
+2,Thriller,"Films designed to generate suspense, tension, and excitement."
+3,Crime,"Films centred on criminal acts, investigations, or the criminal underworld."
+4,Science Fiction,"Speculative films exploring futuristic technology, space, and artificial intelligence."
+5,Horror,"Films intended to frighten, disturb, or unsettle the audience."
+6,Romance,Films focused on love relationships and emotional intimacy.
+7,War,Films set during armed conflicts depicting combat and its human cost.
+8,Historical,Films set in or depicting a specific historical period or event.
+9,Documentary,Non-fiction films presenting factual information about real events or people.
+10,Experimental,Films that challenge conventional narrative and formal filmmaking structures.
+11,Comedy,"Films intended to provoke laughter through character, situation, or dialogue."
+12,Adventure,"Films emphasising journeys, quests, and physically daring situations."
+13,Philosophical,"Films centrally concerned with existential, ethical, or metaphysical questions."
+14,Social Realism,Films that depict the everyday lives of working-class or marginalised people.
+15,Feminist,Films that foreground female experience and critique patriarchal structures.
