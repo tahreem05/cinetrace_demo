@@ -57,16 +57,16 @@
     <div class="stat-label">Films</div>
   </div>
   <div class="stat-block">
-    <div class="stat-num" id="dirCount">—</div>
+    <div class="stat-num">{{ total_dirs }}</div>
     <div class="stat-label">Directors</div>
   </div>
   <div class="stat-block">
-    <div class="stat-num" id="genreCount">{{ genres|length }}</div>
+    <div class="stat-num">{{ genres|length }}</div>
     <div class="stat-label">Genres</div>
   </div>
   <div class="stat-block">
-    <div class="stat-num">∞</div>
-    <div class="stat-label">Connections</div>
+    <div class="stat-num">{{ total_users }}</div>
+    <div class="stat-label">Active Users</div>
   </div>
 </div>
 
@@ -168,12 +168,6 @@
 
 {% block scripts %}
 <script>
-// Fetch director count for stat
-fetch('/api/films').then(r=>r.json()).then(f=>{
-  const dirs=new Set(f.map(x=>x.director_id));
-  document.getElementById('dirCount').textContent=dirs.size
-})
-
 // Load TMDB posters
 document.querySelectorAll('[data-title]').forEach(img=>{
   const t=img.dataset.title,y=img.dataset.year;

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ film.title }} — CineTrace{% endblock %}
+{% block title %}Explore {{ film.title }} — CineTrace{% endblock %}
 
 {% block head %}
 <style>
@@ -7,7 +7,7 @@
   position:relative;min-height:60vh;display:flex;align-items:flex-end;
   padding:0 60px 60px;overflow:hidden;
 }
-.film-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.3) saturate(1.2)}
+.film-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.25) saturate(1.2);background-image:url('/static/img/hero_placeholder.svg');transition:background-image 0.5s ease;}
 .film-hero-fade{
   position:absolute;inset:0;
   background:linear-gradient(to right,#0a0a0ff5 35%,#0a0a0f88 65%,transparent),
@@ -18,13 +18,14 @@
 .film-poster-main{width:200px;border-radius:8px;box-shadow:0 20px 60px #00000099;object-fit:cover;aspect-ratio:2/3;display:block;background:var(--surface2)}
 .film-info-col{flex:1;min-width:0}
 .film-title-main{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,66px);line-height:.95;letter-spacing:2px;margin-bottom:12px}
-.film-tagline{font-family:'Playfair Display',serif;font-style:italic;color:var(--muted);font-size:16px;margin-bottom:16px}
+.film-tagline{color:var(--muted);font-size:16px;margin-bottom:16px;line-height:1.4}
+.film-tagline strong{color:var(--text)}
 .film-meta-row{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin-bottom:20px}
 .meta-chip{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
 .meta-chip strong{color:var(--text)}
 .rating-big{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:#000;font-weight:800;font-size:15px;padding:6px 14px;border-radius:4px}
 .film-synopsis-main{font-size:14px;line-height:1.75;color:#ccccd8;max-width:560px;margin-bottom:24px}
-.film-genres-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.film-genres-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
 .genre-pill{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;background:var(--surface2);border:1px solid var(--border);color:var(--muted);text-decoration:none;transition:all .2s}
 .genre-pill:hover{border-color:var(--gold);color:var(--gold)}
 
@@ -32,19 +33,26 @@
 .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:40px 60px}
 .detail-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:24px}
 .detail-card h3{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--gold);margin-bottom:16px}
-.influence-item{padding:12px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start}
+.influence-item{padding:16px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start}
 .influence-item:last-child{border-bottom:none}
 .infl-arrow{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px}
 .infl-in{background:#2d4a2d;color:#7ec87e}
 .infl-out{background:#4a2d2d;color:#c87e7e}
 .infl-text{flex:1;min-width:0}
-.infl-film-link{font-weight:600;font-size:14px;color:var(--gold);display:block;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.infl-type{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.infl-film-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;gap:10px}
+.infl-film-link{font-weight:600;font-size:14px;color:var(--gold);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.infl-type{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
 .infl-desc{font-size:12px;color:#aaa;line-height:1.5}
 .strength-badge{font-size:10px;padding:2px 8px;border-radius:3px;font-weight:700}
 .strength-High{background:#4a3a00;color:var(--gold)}
 .strength-Medium{background:#2a3a4a;color:#7eb8c8}
 .strength-Low{background:#2a2a3a;color:var(--muted)}
+
+/* Influence Votes Widget */
+.vote-widget{display:flex;align-items:center;gap:6px;background:var(--surface);padding:3px 8px;border-radius:4px;border:1px solid var(--border);font-size:12px}
+.vote-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:0 2px;transition:color 0.2s;outline:none}
+.vote-btn:hover{color:var(--gold)}
+.vote-score{font-weight:bold;color:var(--text);min-width:14px;text-align:center}
 
 /* reviews */
 .review-item{padding:16px 0;border-bottom:1px solid var(--border)}
@@ -52,13 +60,15 @@
 .review-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .review-avatar{width:32px;height:32px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#000;flex-shrink:0}
 .review-user{font-weight:600;font-size:13px}
-.review-rating{margin-left:auto;color:var(--gold);font-size:13px;font-weight:700}
+.review-rating{margin-left:8px;color:var(--gold);font-size:13px;font-weight:700}
 .review-body{font-size:13px;line-height:1.65;color:#ccc}
 
 /* crew */
 .crew-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
-.crew-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px;text-align:center}
+.crew-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px;text-align:center;transition:border-color 0.2s}
+.crew-card.lead-member{border-color:var(--gold);background:rgba(232,184,75,0.04)}
 .crew-name{font-weight:600;font-size:13px;margin-bottom:4px}
+.crew-name.lead-name{color:var(--gold)}
 .crew-role{font-size:11px;color:var(--muted);text-transform:capitalize}
 
 /* awards */
@@ -70,6 +80,12 @@
 .award-year{font-size:12px;color:var(--muted);margin-left:auto}
 .award-won{background:#4a3a00;color:var(--gold);font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px}
 .award-nom{background:#2a2a3a;color:var(--muted);font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px}
+
+/* btn input controls */
+.btn-gold{background:var(--gold);color:#000;border:none;padding:10px 20px;border-radius:4px;font-weight:700;cursor:pointer;transition:background 0.2s}
+.btn-gold:hover{background:var(--gold2)}
+.form-select{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 15px;border-radius:4px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;outline:none;transition:border-color 0.2s;height:42px}
+.form-select:focus{border-color:var(--gold)}
 
 @media(max-width:900px){
   .detail-grid{grid-template-columns:1fr}
@@ -85,13 +101,13 @@
 
 <!-- FILM HERO -->
 <section class="film-hero">
-  <div class="film-hero-bg" style="background-image:url('{{ film.get('poster_url','') or '/static/img/hero_placeholder.svg' }}')"></div>
+  <div class="film-hero-bg"></div>
   <div class="film-hero-fade"></div>
   <div class="film-layout">
     <div class="film-poster-col">
       <img class="film-poster-main"
            id="mainPoster"
-           src="{{ film.get('poster_url','') or '/static/img/placeholder.svg' }}"
+           src="/static/img/placeholder.svg"
            data-title="{{ film.title }}"
            data-year="{{ film.get('release_year','') }}"
            onerror="this.src='/static/img/placeholder.svg'"
@@ -99,9 +115,15 @@
     </div>
     <div class="film-info-col">
       <h1 class="film-title-main">{{ film.title }}</h1>
-      {% if film.get('director_name') %}
-      <div class="film-tagline">Directed by {{ film.director_name }}</div>
-      {% endif %}
+      <div class="film-tagline">
+        {% if film.get('director_name') %}
+          Directed by <strong>{{ film.director_name }}</strong>
+        {% endif %}
+        {% if film.get('cinematographer_name') %}
+          &nbsp;·&nbsp; Cinematography by <strong>{{ film.cinematographer_name }}</strong>
+        {% endif %}
+      </div>
+      
       <div class="film-meta-row">
         {% if film.get('avg_rating') %}
         <div class="rating-big">
@@ -128,13 +150,36 @@
         <div class="meta-chip">🏆 <strong>{{ film.awards_won }}</strong> awards</div>
         {% endif %}
       </div>
+      
       <div class="film-genres-row">
         {% for g in film.get('genres',[]) %}
         <a href="/browse?genre={{ g }}" class="genre-pill">{{ g }}</a>
         {% endfor %}
       </div>
+      
+      {% if film_movements %}
+      <div class="film-genres-row">
+        {% for m in film_movements %}
+        <a href="/movements?id={{ m.movement_id }}" class="genre-pill" style="border-color:var(--gold); color:var(--gold);">🎬 {{ m.name }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+      
       {% if film.get('synopsis') %}
       <p class="film-synopsis-main">{{ film.synopsis }}</p>
+      {% endif %}
+      
+      <!-- Watchlist Selection Dropdown -->
+      {% if current_user %}
+      <div style="display:inline-flex; align-items:center; gap:10px; margin-top:10px;">
+        <select id="watchlistSelect" onchange="addToWatchlist('{{ film.film_id }}', this.value)" class="form-select">
+          <option value="" disabled selected>+ Add to Watchlist...</option>
+          {% for wl in user_watchlists %}
+            <option value="{{ wl.list_name }}">{{ wl.list_name }}</option>
+          {% endfor %}
+          <option value="__NEW__">[Create New List...]</option>
+        </select>
+      </div>
       {% endif %}
     </div>
   </div>
@@ -145,13 +190,28 @@
 
   <!-- Influenced By -->
   <div class="detail-card">
-    <h3>Influenced By</h3>
+    <h3>Inspired By</h3>
     {% if influences.influenced_by %}
       {% for link in influences.influenced_by %}
       <div class="influence-item">
         <div class="infl-arrow infl-in">↓</div>
         <div class="infl-text">
-          <a class="infl-film-link" href="/film/{{ link.get('source_film_id','') }}">{{ link.film_title }}</a>
+          <div class="infl-film-header">
+            <a class="infl-film-link" href="/film/{{ link.get('source_film_id','') }}">{{ link.film_title }}</a>
+            
+            <!-- AJAX Influence Voting -->
+            {% if current_user %}
+            <div class="vote-widget">
+              <button class="vote-btn" onclick="voteInfluence('{{ link.link_id }}', 1)">▲</button>
+              <span class="vote-score" id="vote-score-{{ link.link_id }}">{{ link.net_votes or 0 }}</span>
+              <button class="vote-btn" onclick="voteInfluence('{{ link.link_id }}', -1)" style="font-size:13px; transform:translateY(1px)">▼</button>
+            </div>
+            {% else %}
+            <div class="vote-widget" style="padding:3px 10px; color:var(--muted)">
+              <span class="vote-score">{{ link.net_votes or 0 }} votes</span>
+            </div>
+            {% endif %}
+          </div>
           <div class="infl-type">{{ link.get('influence_type','').replace('_',' ') }}
             <span class="strength-badge strength-{{ link.get('strength','') }}">{{ link.get('strength','') }}</span>
           </div>
@@ -172,7 +232,22 @@
       <div class="influence-item">
         <div class="infl-arrow infl-out">↑</div>
         <div class="infl-text">
-          <a class="infl-film-link" href="/film/{{ link.get('influenced_film_id', link.get('target_film_id','')) }}">{{ link.film_title }}</a>
+          <div class="infl-film-header">
+            <a class="infl-film-link" href="/film/{{ link.get('influenced_film_id', link.get('target_film_id','')) }}">{{ link.film_title }}</a>
+            
+            <!-- AJAX Influence Voting -->
+            {% if current_user %}
+            <div class="vote-widget">
+              <button class="vote-btn" onclick="voteInfluence('{{ link.link_id }}', 1)">▲</button>
+              <span class="vote-score" id="vote-score-{{ link.link_id }}">{{ link.net_votes or 0 }}</span>
+              <button class="vote-btn" onclick="voteInfluence('{{ link.link_id }}', -1)" style="font-size:13px; transform:translateY(1px)">▼</button>
+            </div>
+            {% else %}
+            <div class="vote-widget" style="padding:3px 10px; color:var(--muted)">
+              <span class="vote-score">{{ link.net_votes or 0 }} votes</span>
+            </div>
+            {% endif %}
+          </div>
           <div class="infl-type">{{ link.get('influence_type','').replace('_',' ') }}
             <span class="strength-badge strength-{{ link.get('strength','') }}">{{ link.get('strength','') }}</span>
           </div>
@@ -185,24 +260,73 @@
     {% endif %}
   </div>
 
-  <!-- Reviews -->
-  {% if reviews %}
-  <div class="detail-card">
-    <h3>Reviews</h3>
-    {% for r in reviews %}
-    <div class="review-item">
-      <div class="review-header">
-        <div class="review-avatar">{{ (r.get('username') or r.get('user_id','U'))[0]|upper }}</div>
-        <span class="review-user">{{ r.get('username') or ('User #'+r.get('user_id','?')) }}</span>
-        {% if r.get('rating') %}
-        <span class="review-rating">★ {{ r.rating }}</span>
-        {% endif %}
+  <!-- Reviews Block -->
+  <div class="detail-card" style="grid-column: span 2;">
+    <h3>Reviews ({{ reviews|length }})</h3>
+    
+    <!-- Write a Review Form for logged-in users -->
+    {% if current_user %}
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:20px; margin-bottom:24px;">
+      <h4 style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:var(--gold); margin-bottom:12px;">Write a Review</h4>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:13px; color:var(--muted);">Your Rating:</span>
+          <select id="reviewRating" style="background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:4px 8px; border-radius:4px; font-family:inherit;">
+            <option value="10">★ 10 - Masterpiece</option>
+            <option value="9">★ 9 - Excellent</option>
+            <option value="8" selected>★ 8 - Very Good</option>
+            <option value="7">★ 7 - Good</option>
+            <option value="6">★ 6 - Fine</option>
+            <option value="5">★ 5 - Average</option>
+            <option value="4">★ 4 - Bad</option>
+            <option value="3">★ 3 - Very Bad</option>
+            <option value="2">★ 2 - Horrible</option>
+            <option value="1">★ 1 - Unwatchable</option>
+          </select>
+        </div>
+        <textarea id="reviewBody" rows="4" placeholder="Share your thoughts about this masterpiece..." style="background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:10px; border-radius:4px; font-family:inherit; font-size:13px; resize:vertical; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--gold)'"></textarea>
+        <button class="btn-gold" onclick="submitReview('{{ film.film_id }}')" style="align-self:flex-start;">Submit Review</button>
       </div>
-      <p class="review-body">{{ r.get('body','') or 'No review text.' }}</p>
     </div>
-    {% endfor %}
+    {% else %}
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:15px; margin-bottom:24px; text-align:center; font-size:13px; color:var(--muted)">
+      Please <a href="/login" style="color:var(--gold); text-decoration:underline;">sign in</a> to write a review.
+    </div>
+    {% endif %}
+    
+    {% if reviews %}
+      <div style="display:flex; flex-direction:column; gap:16px;" id="reviewsContainer">
+        {% for r in reviews %}
+        <div class="review-item" id="review-{{ r.review_id }}" style="background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:15px; display:flex; flex-direction:column; gap:10px;">
+          <div class="review-header" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div class="review-avatar" style="width:28px; height:28px; font-size:12px;">{{ (r.get('username') or 'U')[0]|upper }}</div>
+              <span class="review-user">{{ r.get('username') or ('User #'+r.get('user_id')|string) }}</span>
+              {% if r.get('rating') %}
+              <span class="review-rating" style="margin-left:8px;">★ {{ r.rating }}</span>
+              {% endif %}
+            </div>
+            
+            <div style="display:flex; align-items:center; gap:8px;">
+              {% if current_user %}
+                {% if current_user.role == 'admin' %}
+                  <button onclick="moderateReviewFromPage('{{ r.review_id }}', 'delete')" style="background:rgba(229,57,53,0.15); color:var(--red); border:1px solid rgba(229,57,53,0.3); padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='var(--red)'; this.style.color='white'" onmouseout="this.style.background='rgba(229,57,53,0.15)'; this.style.color='var(--red)'">Delete 🗑</button>
+                {% endif %}
+                <button id="flag-btn-{{ r.review_id }}" onclick="moderateReviewFromPage('{{ r.review_id }}', 'flag')" style="background:rgba(255,255,255,0.05); color:var(--muted); border:1px solid var(--border); padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer; transition:all 0.2s;" {% if r.get('is_flagged')|string == '1' or r.get('is_flagged') == 1 or r.get('is_flagged') == True %}style="background:rgba(232,184,75,0.15); color:var(--gold); border-color:var(--gold); cursor:not-allowed;" disabled{% endif %} onmouseover="if(!this.disabled){this.style.background='rgba(232,184,75,0.15)'; this.style.color='var(--gold)'}" onmouseout="if(!this.disabled){this.style.background='rgba(255,255,255,0.05)'; this.style.color='var(--muted)'}">
+                  {% if r.get('is_flagged')|string == '1' or r.get('is_flagged') == 1 or r.get('is_flagged') == True %}Flagged 🚩{% else %}Flag 🚩{% endif %}
+                </button>
+              {% endif %}
+            </div>
+          </div>
+          <p class="review-body" style="font-size:13px; line-height:1.6; color:#ccc; margin-bottom:0;">{{ r.get('body','') }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div id="reviewsContainer" style="display:flex; flex-direction:column; gap:16px;"></div>
+      <p id="noReviewsText" style="color:var(--muted); font-size:13px; text-align:center; padding:20px;">No reviews yet. Be the first to share your thoughts!</p>
+    {% endif %}
   </div>
-  {% endif %}
 
   <!-- Awards -->
   {% if awards %}
@@ -230,14 +354,19 @@
 
 <!-- CREW -->
 {% if crew %}
-<section class="section">
+<section class="section" style="padding-top:20px;">
   <div class="section-header">
     <h2 class="section-title">Key Crew</h2>
   </div>
   <div class="crew-grid">
     {% for c in crew %}
-    <div class="crew-card">
-      <div class="crew-name">{{ c.get('full_name','') }}</div>
+    <div class="crew-card {% if c.get('leadp')|string == '1' or c.get('leadp') == 1 or c.get('leadp') == True %}lead-member{% endif %}">
+      <div class="crew-name {% if c.get('leadp')|string == '1' or c.get('leadp') == 1 or c.get('leadp') == True %}lead-name{% endif %}">
+        {{ c.get('full_name','') }}
+        {% if c.get('leadp')|string == '1' or c.get('leadp') == 1 or c.get('leadp') == True %}
+          <span style="font-size:9px; background:var(--gold); color:#000; padding:1px 5px; border-radius:3px; margin-left:4px; font-weight:700; vertical-align:middle;">LEAD</span>
+        {% endif %}
+      </div>
       <div class="crew-role">{{ c.get('role','') }}</div>
     </div>
     {% endfor %}
@@ -249,16 +378,107 @@
 
 {% block scripts %}
 <script>
-const TMDB_KEY = localStorage.getItem('tmdb_key') || ''
-if(TMDB_KEY){
-  const img=document.getElementById('mainPoster')
-  if(img){
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(img.dataset.title)}&year=${img.dataset.year}`)
-      .then(r=>r.json()).then(d=>{
-        const p=d.results?.[0]?.poster_path
-        if(p){img.src=`https://image.tmdb.org/t/p/w400${p}`}
-      }).catch(()=>{})
-  }
+// Load posters dynamically using base getPosterUrl & getBackdropUrl
+const title = document.getElementById('mainPoster').dataset.title;
+const year = document.getElementById('mainPoster').dataset.year;
+
+getPosterUrl(title, year).then(url => {
+  document.getElementById('mainPoster').src = url;
+});
+
+getBackdropUrl(title, year).then(url => {
+  document.querySelector('.film-hero-bg').style.backgroundImage = `url('${url}')`;
+});
+
+// Watchlist AJAX functions
+function addToWatchlist(film_id, listName) {
+    if(listName === '__NEW__') {
+        const name = prompt("Enter a name for the new watchlist:");
+        if(!name) {
+            document.getElementById('watchlistSelect').value = '';
+            return;
+        }
+        listName = name;
+    }
+    
+    fetch('/api/watchlist/add', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({list_name: listName, film_id: film_id})
+    }).then(r=>r.json()).then(d=>{
+        if(d.success) {
+            alert(`Successfully added to watchlist: ${listName}!`);
+            window.location.reload();
+        }
+    });
+}
+
+// Influence Voting AJAX
+function voteInfluence(link_id, vote_val) {
+    fetch('/api/vote', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({link_id: link_id, vote: vote_val})
+    }).then(r=>r.json()).then(d=>{
+        if(d.success) {
+            const scoreSpan = document.getElementById(`vote-score-${link_id}`);
+            if(scoreSpan) {
+                let currentScore = parseInt(scoreSpan.textContent) || 0;
+                scoreSpan.textContent = currentScore + vote_val;
+            }
+        } else {
+            alert(d.error || "An error occurred");
+        }
+    });
+}
+
+// Review submission AJAX
+function submitReview(film_id) {
+    const rating = document.getElementById('reviewRating').value;
+    const body = document.getElementById('reviewBody').value.trim();
+    if(!body) return alert("Please enter review text");
+    
+    fetch('/api/review', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({film_id, rating, body})
+    }).then(r=>r.json()).then(d=>{
+        if(d.success) {
+            alert("Review submitted successfully!");
+            window.location.reload();
+        }
+    });
+}
+
+// Moderate review from detailed page
+function moderateReviewFromPage(review_id, action) {
+    if(action === 'delete' && !confirm("Are you sure you want to delete this review?")) return;
+    
+    fetch('/api/review/moderate', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({review_id, action})
+    }).then(r=>r.json()).then(d=>{
+        if(d.success) {
+            if(action === 'delete') {
+                const elem = document.getElementById(`review-${review_id}`);
+                if(elem) {
+                    elem.style.transition = 'all 0.3s';
+                    elem.style.opacity = '0';
+                    setTimeout(() => elem.remove(), 300);
+                }
+            } else if(action === 'flag') {
+                const btn = document.getElementById(`flag-btn-${review_id}`);
+                if(btn) {
+                    btn.disabled = true;
+                    btn.style.background = 'rgba(232,184,75,0.15)';
+                    btn.style.color = 'var(--gold)';
+                    btn.style.borderColor = 'var(--gold)';
+                    btn.textContent = 'Flagged 🚩';
+                }
+            }
+        }
+    });
 }
 </script>
 {% endblock %}

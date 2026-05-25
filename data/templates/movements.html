@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Cinematic Movements — CineTrace{% endblock %}
+
+{% block head %}
+<style>
+.mov-header{padding:40px 60px 20px;}
+.mov-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;color:var(--text)}
+.mov-container{padding:0 60px 60px;display:grid;grid-template-columns:300px 1fr;gap:40px}
+.mov-list{display:flex;flex-direction:column;gap:12px}
+.mov-item{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:18px;cursor:pointer;transition:all 0.25s;text-align:left;outline:none}
+.mov-item:hover, .mov-item.active{border-color:var(--gold);background:rgba(232,184,75,0.06);transform:translateY(-2px)}
+.mov-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--gold);margin-bottom:4px}
+.mov-years{font-size:12px;color:var(--muted);text-transform:uppercase}
+
+.mov-detail{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:30px;display:flex;flex-direction:column;gap:24px}
+.detail-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1.5px;color:var(--gold)}
+.detail-meta{font-size:13px;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:12px}
+.detail-desc{font-size:14px;line-height:1.75;color:#ccc}
+
+.film-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:20px;margin-top:20px}
+.film-item{text-align:center;text-decoration:none;transition:transform 0.2s;cursor:pointer}
+.film-item:hover{transform:scale(1.05)}
+.film-poster{width:100%;aspect-ratio:2/3;border-radius:4px;object-fit:cover;margin-bottom:8px;background:var(--surface);display:block}
+.film-title{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+@media(max-width:900px){
+    .mov-container{grid-template-columns:1fr}
+    .mov-header, .mov-container{padding-left:20px;padding-right:20px}
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="mov-header">
+    <h1 class="mov-title">Cinematic Movements</h1>
+</div>
+
+<div class="mov-container">
+    <div class="mov-list">
+        {% for m in movements %}
+        <button class="mov-item {% if selected_movement and selected_movement.movement_id == m.movement_id %}active{% endif %}" onclick="window.location.href='/movements?id={{ m.movement_id }}'">
+            <div class="mov-name">{{ m.name }}</div>
+            <div class="mov-years">{{ m.origin_country }} • {{ m.start_year }} - {{ m.end_year or 'Present' }}</div>
+        </button>
+        {% endfor %}
+    </div>
+    
+    <div class="mov-detail">
+        {% if selected_movement %}
+            <h2 class="detail-title">{{ selected_movement.name }}</h2>
+            <div class="detail-meta">Origin: <strong>{{ selected_movement.origin_country }}</strong> &nbsp;·&nbsp; Years: <strong>{{ selected_movement.start_year }} - {{ selected_movement.end_year or 'Present' }}</strong></div>
+            <p class="detail-desc">{{ selected_movement.description }}</p>
+            
+            <h3 style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--gold);margin-top:15px;border-top:1px solid var(--border);padding-top:20px;">Films in this Movement ({{ movement_films|length }})</h3>
+            {% if movement_films %}
+            <div class="film-grid">
+                {% for f in movement_films %}
+                <a class="film-item" href="/film/{{ f.film_id }}">
+                    <img class="film-poster" data-lazy-title="{{ f.title }}" src="/static/img/placeholder.svg" alt="{{ f.title }}">
+                    <div class="film-title">{{ f.title }}</div>
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="no-data">No films recorded in this movement.</div>
+            {% endif %}
+        {% else %}
+            <div style="text-align:center;padding:80px 0;color:var(--muted);">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:16px;opacity:0.5;"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+                <div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px;">Select a Cinematic Movement</div>
+                <div>Explore directors and films belonging to historical film currents.</div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Load posters dynamically from TMDB
+document.querySelectorAll('img[data-lazy-title]').forEach(img=>{
+  getPosterUrl(img.dataset.lazyTitle, '').then(url => { img.src = url; });
+});
+</script>
+{% endblock %}

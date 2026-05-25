@@ -211,6 +211,16 @@
     <a href="/" class="{% if request.path=='/' %}active{% endif %}">Home</a>
     <a href="/browse" class="{% if request.path=='/browse' %}active{% endif %}">Browse</a>
     <a href="/directors" class="{% if request.path=='/directors' %}active{% endif %}">Directors</a>
+    <a href="/movements" class="{% if request.path=='/movements' %}active{% endif %}">Movements</a>
+    {% if current_user %}
+      {% if current_user.role == 'admin' %}
+        <a href="/admin" class="{% if request.path=='/admin' %}active{% endif %}">Admin Panel</a>
+      {% endif %}
+      <a href="/watchlists" class="{% if request.path=='/watchlists' %}active{% endif %}">My Watchlists</a>
+      <a href="/logout" style="color:var(--gold);">Logout ({{ current_user.username }})</a>
+    {% else %}
+      <a href="/login" class="{% if request.path=='/login' %}active{% endif %}">Login</a>
+    {% endif %}
   </div>
   <div class="nav-search">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
